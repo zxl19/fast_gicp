@@ -7,6 +7,7 @@ option(BUILD_test "Build test programs" OFF)
 option(BUILD_PYTHON_BINDINGS "Build python bindings" OFF)
 
 set(CMAKE_BUILD_TYPE "Release")
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 find_package(PCL REQUIRED)
 find_package(Eigen3 REQUIRED)
