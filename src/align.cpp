@@ -35,9 +35,18 @@ void test_pcl(Registration& reg, const std::string& reg_name, const pcl::PointCl
   double single = std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count() / 1e6;
   std::cout << "single: " << single << " [msec], " << std::flush;
 
-  pcl::io::savePCDFileASCII("/home/pcd/" + reg_name + "_source.pcd", *source);
-  pcl::io::savePCDFileASCII("/home/pcd/" + reg_name + "_target.pcd", *target);
-  pcl::io::savePCDFileASCII("/home/pcd/" + reg_name + "_aligned.pcd", *aligned);
+  if (pcl::io::savePCDFileASCII("/home/pcd/" + reg_name + "_source.pcd", *source)) {
+    std::cerr << "failed to save "
+              << "/home/pcd/" + reg_name + "_source.pcd" << std::endl;
+  }
+  if (pcl::io::savePCDFileASCII("/home/pcd/" + reg_name + "_target.pcd", *target)) {
+    std::cerr << "failed to save "
+              << "/home/pcd/" + reg_name + "_target.pcd" << std::endl;
+  }
+  if (pcl::io::savePCDFileASCII("/home/pcd/" + reg_name + "_aligned.pcd", *aligned)) {
+    std::cerr << "failed to save "
+              << "/home/pcd/" + reg_name + "_aligned.pcd" << std::endl;
+  }
 
   // 100 times
   t1 = std::chrono::high_resolution_clock::now();
@@ -48,7 +57,7 @@ void test_pcl(Registration& reg, const std::string& reg_name, const pcl::PointCl
   }
   t2 = std::chrono::high_resolution_clock::now();
   double multi = std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count() / 1e6;
-  std::cout << "100 times: " << multi << "[msec], fitness_score: " << fitness_score << std::endl;
+  std::cout << "100 times: " << multi << " [msec], fitness score: " << fitness_score << std::endl;
 }
 
 // benchmark for fast_gicp registration methods
@@ -73,9 +82,18 @@ void test(Registration& reg, const std::string& reg_name, const pcl::PointCloud<
 
   std::cout << "single: " << single << " [msec], " << std::flush;
 
-  pcl::io::savePCDFileASCII("/home/pcd/" + reg_name + "_source.pcd", *source);
-  pcl::io::savePCDFileASCII("/home/pcd/" + reg_name + "_target.pcd", *target);
-  pcl::io::savePCDFileASCII("/home/pcd/" + reg_name + "_aligned.pcd", *aligned);
+  if (pcl::io::savePCDFileASCII("/home/pcd/" + reg_name + "_source.pcd", *source)) {
+    std::cerr << "failed to save "
+              << "/home/pcd/" + reg_name + "_source.pcd" << std::endl;
+  }
+  if (pcl::io::savePCDFileASCII("/home/pcd/" + reg_name + "_target.pcd", *target)) {
+    std::cerr << "failed to save "
+              << "/home/pcd/" + reg_name + "_target.pcd" << std::endl;
+  }
+  if (pcl::io::savePCDFileASCII("/home/pcd/" + reg_name + "_aligned.pcd", *aligned)) {
+    std::cerr << "failed to save "
+              << "/home/pcd/" + reg_name + "_aligned.pcd" << std::endl;
+  }
 
   // 100 times
   t1 = std::chrono::high_resolution_clock::now();
@@ -108,7 +126,7 @@ void test(Registration& reg, const std::string& reg_name, const pcl::PointCloud<
   t2 = std::chrono::high_resolution_clock::now();
   double reuse = std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count() / 1e6;
 
-  std::cout << "100 times_reuse: " << reuse << " [msec], fitness_score: " << fitness_score << std::endl;
+  std::cout << "100 times reuse: " << reuse << " [msec], fitness score: " << fitness_score << std::endl;
 }
 
 /**
