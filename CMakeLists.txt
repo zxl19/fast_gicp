@@ -91,7 +91,7 @@ endif()
 
 ### Python bindings ###
 if(BUILD_PYTHON_BINDINGS)
-  add_subdirectory(thirdparty/pybind11)
+  find_package(pybind11 CONFIG)
   pybind11_add_module(pygicp
     src/python/main.cpp
   )
@@ -102,6 +102,10 @@ if(BUILD_PYTHON_BINDINGS)
   )
   target_link_libraries(pygicp PRIVATE
     fast_gicp
+  )
+  set_target_properties(pygicp PROPERTIES
+    INSTALL_RPATH "$ORIGIN/"
+    BUILD_WITH_INSTALL_RPATH TRUE
   )
 endif()
 
